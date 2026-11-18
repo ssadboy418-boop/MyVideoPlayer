@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Video Player</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101116;color:white;font-family:Arial}
+header{padding:22px;background:#191a23;font-size:24px;font-weight:bold}
+main{padding:16px}
+video{width:100%;background:black;border-radius:12px}
+button{background:#6949ff;color:white;border:0;padding:14px;border-radius:10px;margin-top:12px}
+input{margin-top:20px}
+h3{color:#aaa}
+</style>
+</head>
+<body>
+<header>▶ My Video Player</header>
+<main>
+<h3>Choose Your Video</h3>
+<input type="file" id="file" accept="video/*">
+<video id="player" controls playsinline></video>
+<h3 id="name">No video selected</h3>
+<button onclick="document.getElementById('player').play()">PLAY</button>
+<button onclick="document.getElementById('player').pause()">PAUSE</button>
+</main>
+<script>
+const file=document.getElementById('file');
+const player=document.getElementById('player');
+file.onchange=()=>{
+if(file.files.length){
+player.src=URL.createObjectURL(file.files[0]);
+document.getElementById('name').innerText=file.files[0].name;
+}
+};
+</script>
+</body>
+</html>
