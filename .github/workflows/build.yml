@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,6 +34,17 @@ jobs:
           npx cap init "My Video Player" com.sadboy.videoplayer --web-dir=www
           npx cap add android
           npx cap sync android
+
+      - name: Fix Kotlin Duplicate Classes
+        run: |
+          cat >> android/build.gradle <<'GRADLE'
+          allprojects {
+            configurations.configureEach {
+              exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+              exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+            }
+          }
+          GRADLE
 
       - name: Build APK
         run: |
